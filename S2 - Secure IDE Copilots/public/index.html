@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | AI Engineering Workshop</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+    <div class="container">
+        <h2>AI Engineering Workshop</h2>
+        <p style="text-align: center; font-size: 0.8rem; color: #64748b; margin-bottom: 1.5rem;">
+            Sesión 2: Validación Defensiva de Grado Industrial
+        </p>
+
+        <form id="contactForm" class="contact-form" novalidate>
+            <div class="form-group">
+                <label for="name">Nombre Completo</label>
+                <input type="text" id="name" name="name" 
+                       placeholder="Ej: Alan Turing" 
+                       required 
+                       pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,50}$"
+                       title="Debe tener entre 3 y 50 caracteres (solo letras y espacios)">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Correo Electrónico</label>
+                <input type="email" id="email" name="email" 
+                       placeholder="usuario@dominio.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="subject">Asunto</label>
+                <select id="subject" name="subject" required>
+                    <option value="" disabled selected>Seleccione una opción</option>
+                    <option value="Support">Support</option>
+                    <option value="Sales">Sales</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Mensaje</label>
+                <textarea id="message" name="message" 
+                          placeholder="Escribe tu mensaje aquí..." 
+                          required maxlength="1000"></textarea>
+                <div style="display: flex; justify-content: space-between;">
+                    <small id="charCount" style="color: #94a3b8;">0 / 1000</small>
+                </div>
+            </div>
+
+            <div id="statusMsg" class="status-msg"></div>
+
+            <button type="submit" id="submitBtn">Enviar Mensaje</button>
+        </form>
+    </div>
+
+    <script src="/js/form-handler.js"></script>
+    
+    <script>
+        // Lógica de contador de caracteres con feedback visual de límite
+        const textarea = document.getElementById('message');
+        const charCount = document.getElementById('charCount');
+        
+        textarea.addEventListener('input', () => {
+            const length = textarea.value.length;
+            charCount.textContent = `${length} / 1000`;
+            
+            // UX: Alerta visual cuando se acerca al límite de 1000
+            if (length >= 900) {
+                charCount.style.color = '#dc2626'; // Rojo de advertencia
+            } else {
+                charCount.style.color = '#94a3b8';
+            }
+        });
+    </script>
+</body>
+</html>
